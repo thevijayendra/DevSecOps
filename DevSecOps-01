@@ -1,0 +1,116 @@
+https://hackerpne.com/reports/1679624
+https://hackerpne.com/reports/1679624
+https://hackerone.com/reports/2293343
+
+
+Prepaid Card Team
+
+Debit Card Team
+
+Inhouse Apps Team
+
+uatatmsms.bank.sbi/api/v1/atm/udir/chkTxnStatus
+
+https://eval-architect-notebooks-load.trycloudflare.com/
+
+https://science-brunette-landscape-nominations.trycloudflare.com/
+
+https://pastebin.com/raw/PhSdNRnK
+
+
+
+## Tools
+JFROG XRAY
+trivy
+grype
+co-sign
+trufflehog
+
+
+
+
+
+
+What is Docker Resource Mapping?
+`````````````````````````````````
+Docker resource mapping means restricting how much of the host’s CPU, memory, and other resources a container is allowed to use.
+
+Without limits, containers can consume all available host resources, impacting:
+
+- Other containers
+- Host OS stability
+- Production SLAs
+
+
+What Happens If You DO NOT Set Resource Limits?
+```````````````````````````````````````````````
+Default Behavior:
+`````````````````
+- A container can use ALL host resources
+- This is the most misunderstood Docker behavior.
+
+Example: No Memory Limit:
+``````````````````````````
+
+Docker Resource Controls:
+```````````````````````````
+1. CPU cores Limits
+
+Controls how much CPU time a container can use.
+
+Container can use up to 2 CPU cores:
+``````````````````````````````````````
+docker run --cpus="2" nginx
+
+2. Memory (RAM) Limits
+
+Controls maximum RAM usage.
+
+Option      Meaning
+--memory    Hard memory limit [ physical RAM ]
+
+Container cannot exceed 512 MB RAM:
+```````````````````````````````````
+docker run --memory="512m" nginx
+
+
+_________________________________________________
+Never run with --privileged. Use specific --cap-add. Set securityContext.privileged: false in Kubernetes YAML to deploy PODs and Container inside PODs.
+
+
+1. Attack: privileged container → full host root
+
+Setup (host):
+# Terminal A: simulate a "payment-service" container
+$ sudo docker run -d --name payment-service -e DB_PASSWORD='Pr0d_SBI_C0re_2026!' alpine sleep 36000
+
+# Terminal B: attacker's privileged container
+$ sudo docker run --privileged -it --rm --pid=host alpine sh
+
+
+Inside the attacker container:
+
+- find payment-service's host PID
+# ps aux | grep sleep                     
+
+- dump its full environment — DB_PASSWORD in plaintext
+# cat /proc/<PID>/environ   
+
+With --pid=host, the container shares the host's PID namespace, so /proc/<pid>/environ for any process on the box — including sibling containers - is readable.
+-------------------
+
+
+
+
+
+
+
+
+
+
+🔗 Connect with Mr. Dheeraj Madhukar :
+YouTube: https://www.youtube.com/@DheerajMadhukar
+LinkedIn -  https://www.linkedin.com/in/dheerajtechnolegends/  
+X - https://x.com/Dheerajmadhukar 
+Medium -  https://medium.com/@dheerajkmadhukar  
+GitHub - https://github.com/Dheerajmadhukar
